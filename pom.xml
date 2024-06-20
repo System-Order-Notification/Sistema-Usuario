@@ -12,7 +12,7 @@
 	<artifactId>Usuarios</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Usuarios</name>
-	<description>Projeto de Processamento de Pedidos</description>
+	<description>Projeto sobre Autenticação e CRUD do Usuário</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -45,6 +45,10 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 
 		<dependency>
