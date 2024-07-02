@@ -26,6 +26,11 @@ public class Usuarios {
 	private Boolean enabled;
 	private UsuarioRole role;
 	
+	public Usuarios() {
+		this.enabled = true;
+		dataInicio = LocalDateTime.now();
+	}
+	
 	public UUID getId() {
 		return id;
 	}
