@@ -16,6 +16,8 @@ import br.com.sp.Usuarios.domain.usuario.Usuarios;
 import br.com.sp.Usuarios.repositories.UserRepository;
 import br.com.sp.Usuarios.services.UsuarioService;
 import br.com.sp.Usuarios.services.conversion.ModelMapperService;
+import br.com.sp.Usuarios.services.exceptions.UsuarioInactivationException;
+import br.com.sp.Usuarios.services.exceptions.UsuarioNotFoundException;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -47,7 +49,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 		Optional<OutputUsuarioDTO> optionalDTO = userRepository.findById(id).map(usuario -> modelMapperService.convertUserDTO(usuario));
 		
 		if (optionalDTO.isEmpty())
-			System.err.println("Erro");
+			throw new UsuarioNotFoundException("Usuário não encontrado");
 		
 		return optionalDTO.get();
 	}
@@ -59,6 +61,10 @@ public class UsuarioServiceImpl implements UsuarioService{
 		
 		if (usuario.isEmpty()) {
 			return false;
+		}
+		
+		if (usuario.isPresent() && usuario.get().getEnabled() == false) {
+			throw new UsuarioInactivationException("Esse usuário já foi inativado");
 		}
 		
 		Usuarios user = usuario.get();
