@@ -13,6 +13,7 @@ import br.com.sp.UsuarioDTOS.input.InputUsuarioDTO;
 import br.com.sp.UsuarioDTOS.input.PutUsuarioDTO;
 import br.com.sp.UsuarioDTOS.output.OutputUsuarioDTO;
 import br.com.sp.Usuarios.domain.usuario.Usuarios;
+import br.com.sp.Usuarios.producers.UserEmailProducer;
 import br.com.sp.Usuarios.repositories.UserRepository;
 import br.com.sp.Usuarios.services.UsuarioService;
 import br.com.sp.Usuarios.services.conversion.ModelMapperService;
@@ -25,11 +26,13 @@ public class UsuarioServiceImpl implements UsuarioService{
 	
 	private final UserRepository userRepository;
 	private final ModelMapperService modelMapperService;
+	private final UserEmailProducer userEmailProducer;
 	
-	public UsuarioServiceImpl(UserRepository userRepository, ModelMapperService modelMapperService) {
+	public UsuarioServiceImpl(UserRepository userRepository, ModelMapperService modelMapperService, UserEmailProducer userEmailProducer) {
 		super();
 		this.userRepository = userRepository;
 		this.modelMapperService = modelMapperService;
+		this.userEmailProducer = userEmailProducer;
 	}
 
 	@Override
@@ -80,6 +83,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 	public OutputUsuarioDTO save(InputUsuarioDTO inputUsuarioDTO) {
 		Usuarios usuario = modelMapperService.convertUserDTOtoUser(inputUsuarioDTO);
 		userRepository.save(usuario);
+		userEmailProducer.sendMessage(usuario);
 		
 		OutputUsuarioDTO userDTO = modelMapperService.convertUserDTO(usuario);
 		return userDTO;

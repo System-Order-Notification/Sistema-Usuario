@@ -61,6 +61,11 @@
 			<artifactId>UsuarioDTOS</artifactId>
 			<version>0.0.4-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>br.com.sp</groupId>
+			<artifactId>emailDTO</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.postgresql</groupId>
